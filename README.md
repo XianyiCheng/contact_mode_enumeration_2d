@@ -1,0 +1,1 @@
+Run *test_sliding.m* to for examples. 
