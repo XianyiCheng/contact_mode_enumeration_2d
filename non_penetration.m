@@ -42,6 +42,8 @@ else
             end
         end
     end
+    ns = null(A);
+    V = [V,ns,-ns];
     V = unique_col(V);
 end
 S = abs(A*V)<tol;
