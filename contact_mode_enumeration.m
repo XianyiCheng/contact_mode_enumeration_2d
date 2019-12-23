@@ -5,14 +5,15 @@
 % Sliding direction is defined as the velocity of the object about the contact
 % point, measured when facing the object (positive normal direction).
 %
-% @param      P     2xn matrix, coordinates of the n contact points. P =
-%                   [p1,p2,p3,...]
-% @param      N     2xn matrix, the n contact normals (point to the object). N =
-%                   [n1,n2,n3,...]
+% @param      P      2xn matrix, coordinates of the n contact points. P =
+%                    [p1,p2,p3,...]
+% @param      N      2xn matrix, the n contact normals (point to the object). N
+%                    = [n1,n2,n3,...]
+% @param      print  If true, print the list of modes.
 %
 % @return     contact_modes: 2 x k matrix, the k possible contact modes.
 %
-function contact_modes = contact_mode_enumeration(P,N)
+function contact_modes = contact_mode_enumeration(P, N, print)
 
 D = [N(2,:);-N(1,:)];
 A = contact_constrants(P, N); % A: contact non-penetration constraints A*v >=0
@@ -85,3 +86,16 @@ edge_sliding_modes = [edge_sliding_modes, edge_modes];
 contact_modes = [region_modes,edge_sliding_modes,face_sliding_modes];
 contact_modes = [zeros(num_c,1),contact_modes];
 contact_modes = unique(contact_modes','rows')';
+
+if nargin > 2 && print == true
+    fprintf('Total numer of modes: %d.\n', size(contact_modes,2));
+    for i = 1:size(contact_modes,2)
+        m = contact_modes(:,i);
+        c = repmat('s',numel(m),1);
+        c(m==1) = 'f';
+        c(m==2) = 'r';
+        c(m==3) = 'l';
+        fprintf(c);
+        fprintf('\n');
+    end
+end

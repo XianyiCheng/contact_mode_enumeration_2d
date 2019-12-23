@@ -22,14 +22,4 @@ N{7} = [0,-1;0,-1]';
 %%
 k = 7;
 Pe = P{k}; Ne = N{k};
-M = contact_mode_enumeration(Pe,Ne);
-fprintf('Total numer of modes: %d.\n', size(M,2));
-for i = 1:size(M,2)
-    m = M(:,i);
-    c = repmat('s',numel(m),1);
-    c(m==1) = 'f';
-    c(m==2) = 'r';
-    c(m==3) = 'l';
-    fprintf(c);
-    fprintf('\n');
-end
+M = contact_mode_enumeration(Pe, Ne, true);
