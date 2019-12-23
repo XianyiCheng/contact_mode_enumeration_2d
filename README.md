@@ -1,1 +1,1 @@
-Run *test_sliding.m* to for examples. 
+Run *test_sliding.m* to for examples.

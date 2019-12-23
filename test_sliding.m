@@ -33,4 +33,3 @@ for i = 1:size(M,2)
     fprintf(c);
     fprintf('\n');
 end
-    

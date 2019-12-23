@@ -1,9 +1,19 @@
+% Enumerate contact modes for a 2D rigid body.
+%
+% contact mode: 0:separation 1:fixed 2: right sliding 3: left sliding
+%
+% Sliding direction is defined as the velocity of the object about the contact
+% point, measured when facing the object (positive normal direction).
+%
+% @param      P     2xn matrix, coordinates of the n contact points. P =
+%                   [p1,p2,p3,...]
+% @param      N     2xn matrix, the n contact normals (point to the object). N =
+%                   [n1,n2,n3,...]
+%
+% @return     contact_modes: 2 x k matrix, the k possible contact modes.
+%
 function contact_modes = contact_mode_enumeration(P,N)
 
-% P = [p1,p2,p3,...] contact points
-% N = [n1,n2,n3,...] contact normals (point to the object)
-%ti*v > 0: positive sliding, ti*v < 0: negative sliding, ti*v = 0: fixed
-% contact mode: 0:separation 1:fixed 2:positive sliding 3: negative sliding
 D = [N(2,:);-N(1,:)];
 A = contact_constrants(P, N); % A: contact non-penetration constraints A*v >=0
 T = contact_constrants(P, D); % T: contact sliding contraints, T = [t1;t2;...;tn]
@@ -50,7 +60,7 @@ for i = 1:size(T,1)
                 face_sliding_vectors = [face_sliding_vectors,{face_vectors}];
                 face_sliding_normals = [face_sliding_normals,face_normal];
             else
-                ns = null([t;face_normal']); 
+                ns = null([t;face_normal']);
                 ns = [ns,-ns];
                 ns = ns(:,all(A*ns>-tol,1));
                 edges_sliding = [edges_sliding,ns];
@@ -75,4 +85,3 @@ edge_sliding_modes = [edge_sliding_modes, edge_modes];
 contact_modes = [region_modes,edge_sliding_modes,face_sliding_modes];
 contact_modes = [zeros(num_c,1),contact_modes];
 contact_modes = unique(contact_modes','rows')';
-   

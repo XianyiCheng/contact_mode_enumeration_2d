@@ -3,7 +3,7 @@ function [V, E, F, edge_modes, face_modes, region_modes, face_support] = non_pen
 % A = [a1;a2;...;an] for n contacts. ai: contact screw
 % from the physics of contacts: ai != all zeros; ai != aj; ai != -aj;
 % 0: inactive, 1:active
-% 
+%
 % return: in cols
 % V: the span of non-penetration cone
 % E: the edges/intersections of faces of non-penetration cone
@@ -12,7 +12,7 @@ function [V, E, F, edge_modes, face_modes, region_modes, face_support] = non_pen
 tol = 1e-6;
 num_c = size(A,1);
 d = rank(A); % d != 0
-if d == 1 % 
+if d == 1 %
     if num_c == 1
         ns = null(A);
         V = [A',ns,-ns];
@@ -27,7 +27,7 @@ if d == 1 %
         ns = null(A);
         V = [ns,-ns];
     end
-        
+
 else
     V = [];
     ind = nchoosek(1:num_c,d-1);
@@ -69,5 +69,5 @@ else
     F = [];
     face_support = [];
 end
- 
+
 end
