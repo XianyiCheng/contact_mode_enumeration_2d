@@ -89,13 +89,5 @@ contact_modes = unique(contact_modes','rows')';
 
 if nargin > 2 && print == true
     fprintf('Total numer of modes: %d.\n', size(contact_modes,2));
-    for i = 1:size(contact_modes,2)
-        m = contact_modes(:,i);
-        c = repmat('s',numel(m),1);
-        c(m==1) = 'f';
-        c(m==2) = 'r';
-        c(m==3) = 'l';
-        fprintf(c);
-        fprintf('\n');
-    end
+    printModes(contact_modes);
 end
