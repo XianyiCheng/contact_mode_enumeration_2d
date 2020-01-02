@@ -6,7 +6,7 @@
 %
 % @return     { description_of_the_return_value }
 %
-function texts = printModes(contact_modes)
+function texts = printModes(contact_modes, print)
 texts = [];
 for i = 1:size(contact_modes,2)
     m = contact_modes(:,i);
@@ -16,5 +16,8 @@ for i = 1:size(contact_modes,2)
     c(m==3) = 'l';
     new_line = sprintf('%s\n',c);
     texts = [texts new_line];
+end
+if nargin == 2 && print == false
+    return;
 end
 disp(texts);
