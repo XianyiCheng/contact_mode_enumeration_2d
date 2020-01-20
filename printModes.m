@@ -17,6 +17,7 @@ for i = 1:size(contact_modes,2)
     new_line = sprintf('%s\n',c);
     texts = [texts new_line];
 end
+texts(end) = []; % remove the last ENTER
 if nargin == 2 && print == false
     return;
 end
